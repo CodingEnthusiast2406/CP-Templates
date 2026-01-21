@@ -1,8 +1,3 @@
-// Credits to HealthyUG for the inspiration.
-// Segment Tree with Point Updates and Range Queries
-// Supports multiple Segment Trees with just a change in the Node and Update
-// Very few changes required everytime
-
 template<typename Node, typename Update>
 struct SegTree {
 	vector<Node> tree;
@@ -16,7 +11,7 @@ struct SegTree {
 		while(s < 2 * n){
 			s = s << 1;
 		}
-		tree.resize(s); fill(all(tree), Node());
+		tree.resize(s); fill(tree.begin() , tree.end(), Node());
 		build(0, n - 1, 1);
 	}
 	void build(int start, int end, int index)  // Never change this
@@ -73,7 +68,7 @@ struct Node1 {
 		val = p1; // may change
 	}
 	void merge(Node1 &l, Node1 &r) { // Merge two child nodes
-		val = l.val ^ r.val;  // may change
+		val = min(l.val , r.val);  // may change
 	}
 };
 
@@ -87,3 +82,16 @@ struct Update1 {
 	}
 };
 
+
+struct Node2 {
+	ll val; // may change
+	Node2() { // Identity element
+		val = 0;	// may change
+	}
+	Node2(ll p1) {  // Actual Node
+		val = p1; // may change
+	}
+	void merge(Node2 &l, Node2 &r) { // Merge two child nodes
+		val = max(l.val , r.val);  // may change
+	}
+};
